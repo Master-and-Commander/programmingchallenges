@@ -1,0 +1,59 @@
+import core.diatonic as diatonic
+
+# examples of commands for notes
+# notes.is_valid_note("C")
+# notes.remove_redundant_accidentals("C##b") // outputs "C#"
+# notes.note_to_int("C")
+# notes.is_enharmonic
+# notes.int_to_note(0)
+# notes.augment("C") notes.diminish("C")
+# notes.to_minor("C")  notes.to_major("A")
+
+
+
+diatonic
+diatonic.get_notes("C")
+
+
+http://bspaans.github.io/python-mingus/doc/wiki/tutorialMidiFileOut.html
+
+C:\Users\caleb\AppData\Local\Packages\CanonicalGroupLimited.Ubuntu18.04onWindows_79rhkp1fndgsc\LocalState\rootfs\home\peasant\repos\challenges\challenge26>python3
+Python 3.7.4 (tags/v3.7.4:e09359112e, Jul  8 2019, 20:34:20) [MSC v.1916 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import speech_recognition as sr
+>>> sr.__version__
+'3.8.1'
+>>> harvard = sr.AudioFile('harvard.wav')
+>>> with harvard as source:
+... audio = r.record(source)
+  File "<stdin>", line 2
+    audio = r.record(source)
+        ^
+IndentationError: expected an indented block
+>>>     audio = r.record(source)
+  File "<stdin>", line 1
+    audio = r.record(source)
+    ^
+IndentationError: unexpected indent
+>>> with harvard as source:
+...     audio = r.record(source)
+... type(audio)
+  File "<stdin>", line 3
+    type(audio)
+       ^
+SyntaxError: invalid syntax
+>>> with harvard as source:
+...     audio = r.record(source)
+...
+Traceback (most recent call last):
+  File "<stdin>", line 2, in <module>
+NameError: name 'r' is not defined
+>>> r = sr.Recognizer()
+>>> with harvard as source:
+...     audio = r.record(source)
+...
+>>> type(audio)
+<class 'speech_recognition.AudioData'>
+>>> r.recognize_google(audio)
+'the stale smell of old beer lingers it takes heat to bring out the odor a cold dip restores health and zest a salt pickle taste fine with ham tacos al Pastore are my favorite a zestful food is be hot cross bun'
+>>>
