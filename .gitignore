@@ -3,3 +3,7 @@ kivy_venv
 notes
 harvard
 output
+*.jpg
+*.png
+*.PNG
+*.JPG
