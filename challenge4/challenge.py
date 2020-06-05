@@ -13,8 +13,7 @@ from openpyxl.chart import (
 #generate a daily report
 ### 1 data gathering
 ## a) API keys
-stockkey = "lbC9ogIsBKf3lmx11nm1rcShRjAoanE13sSj590OnEKxnbMndIxkXahQW4Mz"
-weatherapikey = "002a9dea74400fcc95f816d40c34dacf"
+
 ## b) parameters
 interval = 15
 range = 1
