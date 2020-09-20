@@ -1,6 +1,7 @@
 from PyDictionary import PyDictionary
 import array
 import numpy as np
+import random
 
 dictionary=PyDictionary()
 
@@ -86,7 +87,6 @@ def organizeConclusions(text, dictionary):
         if subject in organizedConclusions:
             organizedConclusions[subject][verb] = ' '.join(factlist)
         else:
-            print("subject " + subject + " not found in organizedConclusions" )
             organizedConclusions[subject] = latterstatement
     return organizedConclusions
 
@@ -104,14 +104,71 @@ def organizeConclusions(text, dictionary):
 def returnQuestions(text, numbofquestions, dictionary):
     # number questions (question, answer, options)
     np_questions =  np.zeros((numbofquestions, 3), dtype='<U64')
-    np_questions[0,0] = "What name is a tall fellow?"
-    np_questions[0,1] = "John"
     #print(np_questions)
     conclusions = organizeConclusions(text, dictionary)
+    questioncounter = 0
+    for x in conclusions:
+        # key for the key
+        thekey = conclusions[x].keys();
+        np_questions[questioncounter] = makeQuestion(x, conclusions[x], random.randint(1, 3)  )
+        questioncounter = questioncounter + 1
+
+
     print("these are my conclusions")
-    print(conclusions)
+    print(np_questions)
+
+
+def makeQuestion(subject, statement, mode):
+    # question types
+    # What verb1 fact1 and verb2 fact2?
+    # does noun verb1 fact1 or fact2?
+    # What does noun do to fact1
+    # check if subject
+
+    keys = list(statement)
+    print("this is the statement")
+    print(keys)
+    multiplePossible = False
+    length = len(keys)
+    randomint = random.randint(0, length-1)
+    second = (randomint + 1) % max(length, 1)
+    questiondata = np.zeros(3, dtype='<U64')
+    answer = "hello"
+
+    if length > 1:
+         multiplePossible = True
+
+
+    print("random int chosen")
+    print(randomint)
+
+    if mode == 1:
+        question = "What thing " + keys[randomint] + " " + statement.get(keys[randomint])
+        answer = subject
+    elif mode == 2 and multiplePossible:
+        numberToUseFirst = second
+        numberToUseSecond = randomint
+        if randomint % 2 == 0:
+            numberToUseFirst=randomint
+            numberToUseSecond=second
+        question = "Does " + subject + " " + keys[randomint] + " " + statement.get(keys[numberToUseFirst], "hay") + " or " + statement.get(keys[numberToUseSecond], "hay") + "?"
+        answer = statement.get(keys[randomint], "eat hay")
+    elif mode == 3:
+        question = "What does " + subject + " do to " + statement.get(keys[randomint], "hay")
+        answer = keys[randomint]
+    else:
+        question = "What thing " + keys[randomint] + " " + statement.get(keys[randomint])
+        answer = subject
+
+    questiondata[0] = question
+    questiondata[1] = answer
+
+        # pattern What key1 fact1 and key2 fact2
+
+
+    return questiondata
 
 
 
 
-returnQuestions("I am a tall fellow. Interestingly, donkeys graciously eat cookies. donkeys drink water", 2, dictionary)
+returnQuestions("I am a tall fellow. Interestingly, donkeys graciously eat cookies. donkeys drink water. Broken cisterns yield no water. Programming breaks laziness. Programming soothes the soul. small cisterns hold some water.", 10, dictionary)
