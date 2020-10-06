@@ -7,6 +7,7 @@ import requests
 import urllib.parse
 from bs4 import BeautifulSoup
 import json
+import random
 ### OBJECTIVE: print out daily facts
 # web scraping for facts on fish
 ## bible verse
@@ -34,12 +35,12 @@ def generateGeneralPdf(name):
     pdf.cell(200, 10, txt=name, ln=1, align="C")
     return pdf
 
-def main():
-    pdf = generateGeneralPdf("Daily Facts")
+def main(name):
+    pdf = generateGeneralPdf(name)
     pdf = getBibleVerse(pdf)
     pdf = getFishInfo(pdf)
     pdf = getShareableInfo(pdf)
-    email(pdf)
+    email(pdf, name)
 
 
 def getBibleVerse(pdf):
@@ -47,10 +48,21 @@ def getBibleVerse(pdf):
 
 
 def getFishInfo(pdf):
-    baseurl = "https://fishbase.ropensci.org//species?Genus=Labroides"
-    #fishresponse=requests.get(baseurl)
+    baseurl = "https://fishbase.ropensci.org//species?Genus=Tilapia"
     fishresponse = requests.get(baseurl)
-    print(fishresponse.json())
+    fishjson = fishresponse.json()
+    fishdata = fishjson.get("data")
+
+    # attributes to print out: Genus, Species, fresh, brack, saltwater, LongevityCaptive, Weight, PriceCateg
+
+    for item in fishdata:
+        for key, value in item.items():
+             statementstring = str(key) + ": " + str(value)
+             pdf.cell(20)
+             pdf.cell(10, 5, txt=statementstring, ln=1)
+
+
+
     #print(fishresponse)
     # fishbase seabase
     return pdf
@@ -59,8 +71,8 @@ def getFishInfo(pdf):
 def getShareableInfo(pdf):
     return pdf
 
-def email(pdf):
-    return(pdf)
+def email(pdf, name):
+    pdf.output(name + str(random.randint(11,20)) + ".pdf")
 
 
-main()
+main("Fish Facts")
