@@ -37,9 +37,14 @@ def generateGeneralPdf(name):
 
 def main(name):
     pdf = generateGeneralPdf(name)
+
+    pdf.cell(200, 10, txt="Daily Facts", ln=1, align="C")
     pdf = getBibleVerse(pdf)
-    pdf = getFishInfo(pdf)
+    pdf.cell(200, 10, txt="Ideas to Share", ln=1, align="C")
     pdf = getShareableInfo(pdf)
+    pdf.cell(200, 10, txt="Fish in Focus", ln=1, align="C")
+    pdf = getFishInfo(pdf)
+
     email(pdf, name)
 
 
@@ -55,11 +60,24 @@ def getFishInfo(pdf):
 
     # attributes to print out: Genus, Species, fresh, brack, saltwater, LongevityCaptive, Weight, PriceCateg
 
+    itemsToFetch = {
+        0: "Genus",
+        1: "Species",
+        2: "Comments"
+    }
     for item in fishdata:
-        for key, value in item.items():
-             statementstring = str(key) + ": " + str(value)
-             pdf.cell(20)
-             pdf.cell(10, 5, txt=statementstring, ln=1)
+        for x in range(len(itemsToFetch)):
+            key = itemsToFetch.get(x)
+            statementstring = str(key) + ": " + str(item.get(key))
+            pdf.cell(20)
+            pdf.cell(10, 5, txt=statementstring, ln=1)
+    #for item in fishdata:
+        #for key, value in item.items():
+            #if value != "None" or value != "":
+                 #statementstring = str(key) + ": " + str(value)
+                 #pdf.cell(20)
+                 #pdf.cell(10, 5, txt=statementstring, ln=1)
+
 
 
 
