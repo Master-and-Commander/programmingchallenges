@@ -63,26 +63,35 @@ def getFishInfo(pdf):
     itemsToFetch = {
         0: "Genus",
         1: "Species",
-        2: "Comments"
+        2: "Comments",
+        3: "Weight"
     }
     for item in fishdata:
         for x in range(len(itemsToFetch)):
-            key = itemsToFetch.get(x)
-            statementstring = str(key) + ": " + str(item.get(key))
+            key = str(itemsToFetch.get(x))
+            wholestring =  str(item.get(key))
+            increment = 75
+            step = 0
+            value = wholestring[(step*increment):(step+1)*increment-len(wholestring)]
+            step = step + 1
+
+            statementstring = str(key) + ": " + str(value)
             pdf.cell(20)
             pdf.cell(10, 5, txt=statementstring, ln=1)
-    #for item in fishdata:
-        #for key, value in item.items():
-            #if value != "None" or value != "":
-                 #statementstring = str(key) + ": " + str(value)
-                 #pdf.cell(20)
-                 #pdf.cell(10, 5, txt=statementstring, ln=1)
-
-
-
-
-    #print(fishresponse)
-    # fishbase seabase
+            breaksUsed = False
+            while len(wholestring) > step*increment:
+                breaksUsed = True
+                value = wholestring[(step*increment):(step+1)*increment-len(wholestring)]
+                statementstring = str(value)
+                if len(statementstring) != 0:
+                    pdf.cell(20)
+                    pdf.cell(10, 5, txt=statementstring, ln=1)
+                step = step + 1
+            if breaksUsed == True:
+                value = wholestring[(step-1)*increment:]
+                statementstring = str(value)
+                pdf.cell(20)
+                pdf.cell(10, 5, txt=statementstring, ln=1)
     return pdf
 
 
