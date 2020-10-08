@@ -1,0 +1,17 @@
+type	extra	date	start	end	value	statement
+Sunday	general	00-00-0000	NA	NA	NA	Work day
+Monday	general	00-00-0000	NA	NA	NA	NA
+Tuesday	general	00-00-0000	NA	NA	NA	NA
+Wednesday	general	00-00-0000	NA	NA	NA	NA
+Thursday	general	00-00-0000	NA	NA	NA	NA
+Friday	general	00-00-0000	NA	NA	NA	NA
+Saturday	general	00-00-0000	NA	NA	NA	NA
+challenge	NA	00-00-0000	NA	NA	20	Get to [x] restaurants during the week.
+challenge	NA	00-00-0000	NA	NA	NA	NA
+Sunday	onetime	00-00-0000	NA	NA	NA	NA
+Monday	onetime	00-00-0000	NA	NA	NA	NA
+Tuesday	onetime	00-00-0000	NA	NA	NA	NA
+Wednesday	onetime	00-00-0000	NA	NA	NA	NA
+Thursday	onetime	00-00-0000	NA	NA	NA	NA
+Friday	onetime	00-00-0000	NA	NA	NA	NA
+Saturday	onetime	00-00-0000	NA	NA	NA	NA
