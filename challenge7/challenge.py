@@ -1,51 +1,108 @@
 # To inform me in my planning decisions has to what is the next best move given my resources
-# Format of json file to use
-# {
-#  "personal" : {},
-#  "resources" : [{"name":"finances", "quantity": "1", "amount": "$5,000", "yield": "$1,500"}, {"name":"house", "quantity": "0", "amount": "$30,000",  "yield": "$0"}],
-#  "goals": [{"name":"Aquponics system for catfish", "value": "12" }]
-#  "items": [{"name":"Aquponics system for catfish", "requirements": [{"name":"clay pellets", "quantity": "100lb", "price": "$99.99"}] }]
-# }
+# Format of json file to use (check capital.json)
+
 
 import numpy as np
 import sys
 import json
 from datetime import date
 from datetime import datetime
+import copy
 
 def main(file):
     today = date.today()
     d2 = today.strftime("%d/%m/%Y")
-    # read json file, see resources and check what is possible
-    # recommend whatever is the next best thing to start
+
+    # read json file
     with open(file, "r") as openfile:
         jsonData = json.load(openfile)
-    # 1: check goals
-    # 2:
 
-    if(str(jsonData.get("currentDollars").get("lastDate")) == str(d2)):
+    # check if not up to date. If not, account for added and lost resources
+    if(str(jsonData.get("lastDate")) == str(d2)):
         print("Nothing to update")
     else:
-        # from that last month on, go through resources and increment gains
-        showGains(jsonData, d2)
+        jsonData = showGains(jsonData, d2)
+    showRecommendations(jsonData)
+    # offer recommendations
 
-
-    # begin with recommendations
+    writeToFile(file, jsonData, d2)
     # ask if any of the recommendations have been accomplished
     # if so update capital.json and exit
 
-def writeToFile(jsonData):
-    # write existing json data to capital.json
-    return 5
+def writeToFile(jsonFile, jsonData, d2):
+    # update lastupdated date and write to file
+    jsonData["lastDate"] = str(d2)
+    with open(jsonFile, 'w') as outfile:
+        json.dump(jsonData, outfile)
 
 
 def showGains(jsonData, last):
-    d1 = datetime.strptime(jsonData.get("currentDollars").get("lastDate"), "%d/%m/%Y").date()
+    # use elapsed time to calculate changes in finances
+    d1 = datetime.strptime(jsonData.get("lastDate"), "%d/%m/%Y").date()
     d2 = datetime.strptime(last,"%d/%m/%Y").date()
-    print("d1: " + str(d1.month))
-    print("d2: " + str(d2.month))
-    difference = (d1.year - d2.year) * 12 + d1.month - d2.month
-    print(difference)
+    months = (d2.year - d1.year) * 12 + d2.month - d1.month
+    jsonData['resources'] = getMonthlyGains(jsonData,months)
+
+
+    return jsonData
+
+
+def getMonthlyGains(jsonData, months):
+    dictionaryCosts = {}
+    dictionaryYields = {}
+    # leave the option to not mess with the original
+    availableResources = copy.deepcopy(jsonData.get("resources"))
+    print("Projecting gains for " + str(months) + " months")
+    # for every elapsed month tally up the yield
+    for resource in availableResources:
+        name = resource.get("name")
+        quantity = resource.get("quantity")
+        for item in jsonData.get("items"):
+            if(item.get("name") == name):
+                # this is where you get the info
+                if ("mode" in item.keys()):
+                    if(item.get("mode") == "repeating"):
+                        if(item.get("type") in dictionaryCosts):
+                            dictionaryCosts[item.get("type")] = months * float(item.get("cost")) + dictionaryCosts[item.get("type")]
+                        else:
+                            dictionaryCosts[item.get("type")] = months * float(item.get("cost"))
+                if("yield" in item.keys()):
+                    if(item.get("yieldType") in dictionaryYields):
+                        dictionaryYields[item.get("yieldType")] = months * float(item.get("yield")) + dictionaryYields[item.get("yieldType")]
+                    else:
+                        dictionaryYields[item.get("yieldType")] = months * float(item.get("yield"))
+
+    for cost in dictionaryCosts:
+        for resource in availableResources:
+            if resource.get("name") == cost:
+                resource["quantity"] = resource["quantity"] - dictionaryCosts[cost]
+
+    # 'yield' is causing syntax error
+    for x in dictionaryYields:
+        for resource in availableResources:
+            if resource.get("name") == x:
+                resource["quantity"] = resource["quantity"] + dictionaryYields[x]
+
+    for externalCost in jsonData.get("externalCosts"):
+        for resource in availableResources:
+            if resource.get("name") == externalCost.get("type"):
+                resource["quantity"] = resource["quantity"] - months *  externalCost["cost"]
+
+    return availableResources
+
+
+
+
+def showRecommendations(jsonData):
+    # look at goals
+    # list what goals are lacking
+    # whatever is lacking the least goes up
+    # recommend buying stuff up to point of costs
+
+    # find out operating costs
+    availableResources = getMonthlyGains(jsonData, 1)
+    print("Available Resources")
+    print(availableResources)
 
 
 def questionIfDone(jsonData, options):
