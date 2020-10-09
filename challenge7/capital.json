@@ -1,0 +1,124 @@
+{
+	"controls": {
+		"houseBudget": "$1,500",
+		"foodBudget": "$150"
+	},
+  "currentDollars": {
+    "amount": "",
+    "lastDate": "09/07/2020"
+  },
+	"resources": [{
+			"name": "Job",
+			"quantity": "1",
+			"amount": "5000",
+			"yield": "1500",
+      "yeildtType": "dollars",
+			"startDate": "09/10/2020",
+      "lastDate": "09/10/2020"
+		},
+		{
+			"name": "house",
+			"quantity": "0",
+			"amount": "$30,000",
+			"yield": "0",
+      "yieldType":"dollars",
+			"startDate": "",
+      "lastDate": ""
+		}
+	],
+	"goals": [{
+			"name": "Aquaponics system for catfish",
+			"quantity": "12"
+		},
+		{
+			"name": "Aquaponics Laravel Website",
+			"quantity": "1"
+		}, {
+			"name": "catfish",
+			"quantity": "5"
+		}
+	],
+	"items": [
+    {
+      "name":"Aquaponics Laravel Website",
+      "cost":"60",
+      "type":"dollars",
+      "mode":"repeating"
+    },
+    {
+			"name": "clay pellets",
+			"cost": "100.00",
+      "type": "dollars",
+      "mode": "onetime"
+		},
+		{
+			"name": "Oxygen pump",
+			"cost": "50.00",
+      "type": "dollars"
+		},
+		{
+			"name": "Water pump",
+			"cost": "50.00",
+      "type": "dollars",
+      "mode": "onetime"
+		},
+		{
+			"name": "Aquaponics cups",
+			"cost": "10.00",
+      "type": "dollars",
+      "mode": "onetime"
+		},
+		{
+			"name": "Aquaponics pvc",
+			"cost": "100.00",
+      "type": "dollars",
+      "mode": "onetime"
+		},
+		{
+			"name": "Aquaponics system for catfish",
+			"yield": "15",
+			"yieldType": "catfish",
+			"timeToYield": "6",
+      "cost": "50",
+      "type": "dollars",
+      "mode": "repeating",
+			"requirements": [{
+					"name": "clay pellets",
+					"quantity": "1"
+				},
+				{
+					"name": "Oxygen pump",
+					"quantity": "1"
+				},
+				{
+					"name": "Water pump",
+					"quantity": "1"
+				},
+				{
+					"name": "Aquaponics cups",
+					"quantity": "4"
+				},
+				{
+					"name": "55 gal barrel",
+					"quantity": "1"
+				},
+				{
+					"name": "pipes",
+					"quantity": "4"
+				}
+
+
+			]
+		},
+		{
+			"name": "catfish",
+			"yield": "15",
+			"type": "dollars",
+			"timeToYield": "0",
+			"requirements": [{
+				"name": "Aquaponics system for catfish",
+				"quantity": "1"
+			}]
+		}
+	]
+}
