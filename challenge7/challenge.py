@@ -53,24 +53,34 @@ def getMonthlyGains(jsonData, months):
     # leave the option to not mess with the original
     availableResources = copy.deepcopy(jsonData.get("resources"))
     print("Projecting gains for " + str(months) + " months")
-    # for every elapsed month tally up the yield
+
+    # Get monthly costs and yields associated with each resource
     for resource in availableResources:
         name = resource.get("name")
         quantity = resource.get("quantity")
-        for item in jsonData.get("items"):
-            if(item.get("name") == name):
-                # this is where you get the info
-                if ("mode" in item.keys()):
-                    if(item.get("mode") == "repeating"):
-                        if(item.get("type") in dictionaryCosts):
-                            dictionaryCosts[item.get("type")] = months * float(item.get("cost")) + dictionaryCosts[item.get("type")]
-                        else:
-                            dictionaryCosts[item.get("type")] = months * float(item.get("cost"))
-                if("yield" in item.keys()):
-                    if(item.get("yieldType") in dictionaryYields):
-                        dictionaryYields[item.get("yieldType")] = months * float(item.get("yield")) + dictionaryYields[item.get("yieldType")]
-                    else:
-                        dictionaryYields[item.get("yieldType")] = months * float(item.get("yield"))
+
+        # yields and costs associated with resource
+        resourceYields = jsonData.get("items").get(name).get("yields")
+        print("resource yields for " + name)
+        print(resourceYields)
+        resourceCosts = jsonData.get("items").get(name).get("costs")
+
+        # for each yield for that item, at to yields to track
+        for ayield in resourceYields:
+            if ayield.get("repeating") == "yes":
+                if(ayield.get("name") in dictionaryYields):
+                    dictionaryYields[ayield.get("name")] = months * float(ayield.get("quantity")) + dictionaryYields[ayield.get("name")]
+                else:
+                    dictionaryYields[ayield.get("name")] = months * float(ayield.get("quantity"))
+
+        # same for costs
+        for acost in resourceCosts:
+            if acost.get("repeating") == "yes":
+                if(acost.get("name") in dictionaryCosts):
+                    dictionaryCosts[acost.get("name")] = months * float(acost.get("quantity")) + dictionaryCosts[acost.get("name")]
+                else:
+                    dictionaryCosts[acost.get("name")] = months * float(acost.get("quantity"))
+
 
     for cost in dictionaryCosts:
         for resource in availableResources:
