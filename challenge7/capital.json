@@ -1,1 +1,175 @@
-{"lastDate": "10/10/2020", "externalCosts": [{"name": "School", "cost": 500, "type": "dollars"}, {"name": "Vegetables", "quantity": 100}, {"name": "Catfish", "quantity": 10}], "resources": [{"name": "dollars", "quantity": 950.0}, {"name": "Job", "quantity": 1}, {"name": "House", "quantity": 0}], "goals": [{"name": "Aquaponics system for catfish", "quantity": 12}, {"name": "Aquaponics Laravel Website", "quantity": 1}, {"name": "Catfish", "quantity": 5}], "items": {"Job": {"costs": [{"repeating": "no"}], "yields": [{"name": "dollars", "quantity": 1500, "repeating": "yes"}]}, "dollars": {"costs": [{"repeating": "no"}], "yields": [{"repeating": "no"}]}, "House": {"costs": [{"name": "dollars", "quantity": 200, "repeating": "yes"}], "yields": [{"name": "dollars", "quantity": 0, "repeating": "yes"}]}, "Vegetables": {"costs": [{"name": "dollars", "quantity": 1, "repeating": "yes"}], "yields": [{"repeating": "no"}]}, "Aquaponics Laravel Website": {"costs": [{"name": "dollars", "quantity": 60, "repeating": "yes"}], "yields": [{"repeating": "no"}]}, "Clay Pellets": {"costs": [{"name": "dollars", "quantity": 100, "repeating": "no"}], "yields": [{"repeating": "no"}]}, "Oxygen Pump": {"costs": [{"name": "dollars", "quantity": 100, "repeating": "no"}], "yields": [{"repeating": "no"}]}, "Water Pump": {"costs": [{"name": "dollars", "quantity": 100, "repeating": "no"}], "yields": [{}]}, "Aquaponics cups": {"costs": [{"name": "dollars", "quantity": 100, "repeating": "no"}], "yields": [{"repeating": "no"}]}, "Aquaponics PVC": {"costs": [{"name": "dollars", "quantity": 100, "repeating": "no"}], "yields": [{"repeating": "no"}]}, "Aquaponics system for catfish": {"costs": [{"name": "dollars", "quantity": 100, "repeating": "no"}], "yields": [{"name": "Catfish", "quantity": 15, "timeToYield": 10, "repeating": "yes"}, {"name": "Vegetables", "quantity": 20, "timeToYield": 6, "repeating": "yes"}], "requirements": [{"name": "clay pellets", "quantity": 1}, {"name": "Oxygen pump", "quantity": 1}, {"name": "Water pump", "quantity": 1}, {"name": "Aquaponics cups", "quantity": 4}, {"name": "55 gal barrel", "quantity": 1}, {"name": "pipes", "quantity": 4}]}, "Catfish": {"yields": [{"name": "dollars", "quantity": 15}], "costs": [{"repeating": "no"}], "requirements": [{"name": "Aquaponics system for catfish", "quantity": 1}]}}}
+{
+	"lastDate": "10/10/2020",
+	"externalCosts": {
+		"Catfish": 8,
+		"Tilapia": 16,
+		"Lettuce": 31,
+		"Broccoli": 31,
+		"Spinach": 31,
+		"Kale": 31,
+		"Prawn": 80,
+		"dollars": 100
+	},
+	"resources": {
+		"dollars": 950.0,
+		"Job": 1,
+		"House": 0
+
+	},
+	"goals": {
+		"Aquaponics system for catfish": 12,
+		"Tilapia system": 12,
+		"Aquaponics Laravel Website": 12
+
+	},
+	"items": {
+		"Job": {
+			"costs": [{
+				"repeating": "no"
+			}],
+			"yields": [{
+				"name": "dollars",
+				"quantity": 1500,
+				"repeating": "yes"
+			}]
+		},
+		"dollars": {
+
+		},
+		"House": {
+			"costs": [{
+				"name": "dollars",
+				"quantity": 200,
+				"repeating": "yes"
+			}],
+			"yields": [{
+				"name": "dollars",
+				"quantity": 0,
+				"repeating": "yes"
+			}]
+		},
+		"Kale": {
+			"dollarValue": 1
+		},
+		"Lettuce": {
+			"dollarValue": 1,
+			"costs": [{
+				"repeating": "no"
+			}],
+			"yields": [{
+				"repeating": "no"
+			}]
+		},
+		"Prawn": {
+			"dollarValue": 1
+		},
+		"Broccoli": {
+			"dollarValue": 1
+		},
+		"Spinach": {
+			"dollarValue": 1
+		},
+		"Tilapia": {
+			"dollarValue": 1
+		},
+		"Aquaponics Laravel Website": {
+			"dollarValue": 0,
+			"costs": [{
+				"name": "dollars",
+				"quantity": 60,
+				"repeating": "yes"
+			}]
+		},
+		"Clay Pellets": {
+			"dollarValue": 100,
+			"costs": [{
+				"repeating": "no"
+			}],
+			"yields": [{
+				"repeating": "no"
+			}]
+		},
+		"Oxygen Pump": {
+			"dollarValue": 50,
+			"costs": [{
+				"repeating": "no"
+			}],
+			"yields": [{
+				"repeating": "no"
+			}]
+		},
+		"Water Pump": {
+			"dollarValue": 50,
+			"costs": [{
+				"repeating": "no"
+			}],
+			"yields": [{
+				"repeating": "no"
+			}]
+		},
+		"Aquaponics cups": {
+			"dollarValue": 100,
+			"costs": [{
+				"repeating": "no"
+			}],
+			"yields": [{
+				"repeating": "no"
+			}]
+		},
+		"Aquaponics PVC": {
+			"dollarValue": 1,
+			"costs": [{
+				"repeating": "no"
+			}],
+			"yields": [{
+				"repeating": "no"
+			}]
+		},
+		"Aquaponics system for catfish": {
+			"costs": [{
+				"name": "dollars",
+				"quantity": 100,
+				"repeating": "no"
+			}],
+			"yields": [{
+				"name": "Catfish",
+				"quantity": 15,
+				"timeToYield": 10,
+				"repeating": "yes"
+			}, {
+				"name": "Spinach",
+				"quantity": 20,
+				"timeToYield": 6,
+				"repeating": "yes"
+			}],
+			"requirements": [{
+				"name": "clay pellets",
+				"quantity": 1
+			}, {
+				"name": "Oxygen pump",
+				"quantity": 1
+			}, {
+				"name": "Water pump",
+				"quantity": 1
+			}, {
+				"name": "Aquaponics cups",
+				"quantity": 4
+			}, {
+				"name": "55 gal barrel",
+				"quantity": 1
+			}, {
+				"name": "pipes",
+				"quantity": 4
+			}]
+		},
+		"Catfish": {
+			"dollarValue": 1,
+			"costs": [{
+				"repeating": "no"
+			}],
+			"yields": [{
+				"repeating": "no"
+			}]
+		}
+	}
+}

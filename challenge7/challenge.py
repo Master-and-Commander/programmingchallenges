@@ -2,6 +2,9 @@
 # Format of json file to use (check capital.json)
 
 
+#### NEXT CHANGE: If item in external cost does not exist in current Resources
+##### get dollar amount from "items "
+
 import numpy as np
 import sys
 import json
@@ -48,55 +51,46 @@ def showGains(jsonData, last):
 
 
 def getMonthlyGains(jsonData, months):
-    dictionaryCosts = {}
-    dictionaryYields = {}
     # leave the option to not mess with the original
     availableResources = copy.deepcopy(jsonData.get("resources"))
+
     print("Projecting gains for " + str(months) + " months")
 
-    # Get monthly costs and yields associated with each resource
-    for resource in availableResources:
-        name = resource.get("name")
-        quantity = resource.get("quantity")
+    externalCosts = jsonData.get("externalCosts")
 
-        # yields and costs associated with resource
-        resourceYields = jsonData.get("items").get(name).get("yields")
-        print("resource yields for " + name)
-        print(resourceYields)
-        resourceCosts = jsonData.get("items").get(name).get("costs")
-
-        # for each yield for that item, at to yields to track
-        for ayield in resourceYields:
-            if ayield.get("repeating") == "yes":
-                if(ayield.get("name") in dictionaryYields):
-                    dictionaryYields[ayield.get("name")] = months * float(ayield.get("quantity")) + dictionaryYields[ayield.get("name")]
+    # resource Costs
+    for item in availableResources.keys():
+        if "costs" in  jsonData.get("items").get(item).keys():
+            for cost in jsonData.get("items").get(item).get("costs"):
+                costtype = cost["name"]
+                costamount = cost["quantity"]
+                if costtype in availableResources.keys():
+                    availableResources[costtype] = availableResources[costtype] -  months * costamount
                 else:
-                    dictionaryYields[ayield.get("name")] = months * float(ayield.get("quantity"))
-
-        # same for costs
-        for acost in resourceCosts:
-            if acost.get("repeating") == "yes":
-                if(acost.get("name") in dictionaryCosts):
-                    dictionaryCosts[acost.get("name")] = months * float(acost.get("quantity")) + dictionaryCosts[acost.get("name")]
+                    availableResources['dollars'] = availableResources['dollars'] - months *  jsonData.get("items").get(item).get("dollarValue")
+        if "yields" in  jsonData.get("items").get(item).keys():
+            for theYield in jsonData.get("items").get(item).get("yields"):
+                yieldtype = theYield["name"]
+                yieldamount = theYield["quantity"]
+                if yieldtype in availableResources.keys():
+                    availableResources[yieldtype] = availableResources[yieldtype] + months * yieldamount
                 else:
-                    dictionaryCosts[acost.get("name")] = months * float(acost.get("quantity"))
+                    availableResources[yieldtype] = months * yieldamount
 
 
-    for cost in dictionaryCosts:
-        for resource in availableResources:
-            if resource.get("name") == cost:
-                resource["quantity"] = resource["quantity"] - dictionaryCosts[cost]
+    ## external costs
+    for cost in externalCosts.keys():
+        if cost in availableResources.keys():
+            availableResources[cost] = availableResources[cost] - months * externalCosts[cost]
+        elif cost == "dollars":
+            availableResources["dollars"] = availableResources["dollars"] - months * externalCosts.get("dollars")
+        else:
+            ## get dollar amount
+            availableResources["dollars"] = availableResources["dollars"] - months * jsonData.get("items").get(cost).get("dollarValue")
 
-    # 'yield' is causing syntax error
-    for x in dictionaryYields:
-        for resource in availableResources:
-            if resource.get("name") == x:
-                resource["quantity"] = resource["quantity"] + dictionaryYields[x]
 
-    for externalCost in jsonData.get("externalCosts"):
-        for resource in availableResources:
-            if resource.get("name") == externalCost.get("type"):
-                resource["quantity"] = resource["quantity"] - months *  externalCost["cost"]
+
+
 
     return availableResources
 
