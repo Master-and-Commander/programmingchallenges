@@ -62,6 +62,7 @@ def getMonthlyGains(jsonData, months):
     for item in availableResources.keys():
         if "costs" in  jsonData.get("items").get(item).keys():
             for cost in jsonData.get("items").get(item).get("costs"):
+
                 costtype = cost["name"]
                 costamount = cost["quantity"]
                 if costtype in availableResources.keys():
@@ -89,9 +90,6 @@ def getMonthlyGains(jsonData, months):
             availableResources["dollars"] = availableResources["dollars"] - months * jsonData.get("items").get(cost).get("dollarValue")
 
 
-
-
-
     return availableResources
 
 
@@ -107,6 +105,14 @@ def showRecommendations(jsonData):
     availableResources = getMonthlyGains(jsonData, 1)
     print("Available Resources")
     print(availableResources)
+
+    for goal in jsonData.get("goals").keys():
+        print("Goal " + str(goal))
+        # find cost to realize goal
+        # find yield to calculate investment value
+
+    # look at goals
+
 
 
 def questionIfDone(jsonData, options):
