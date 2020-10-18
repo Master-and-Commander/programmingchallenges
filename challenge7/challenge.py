@@ -11,6 +11,9 @@ import json
 from datetime import date
 from datetime import datetime
 import copy
+from fpdf import FPDF
+import random
+
 
 def main(file):
     today = date.today()
@@ -37,6 +40,19 @@ def writeToFile(jsonFile, jsonData, d2):
     jsonData["lastDate"] = str(d2)
     with open(jsonFile, 'w') as outfile:
         json.dump(jsonData, outfile)
+
+    # print out a pdf with details
+    name = "Financial Report"
+    pdf = FPDF()
+    pdf.add_page()
+    pdf.set_font("Arial", size=12)
+    pdf.cell(200, 10, txt=name, ln=1, align="C")
+
+    for goal in jsonData.get("goals").keys():
+        pdf.cell(20)
+        pdf.cell(10, 5, txt=str(goal), ln=1)
+
+    pdf.output(name + str(random.randint(11,20)) + ".pdf")
 
 
 def showGains(jsonData, last):
