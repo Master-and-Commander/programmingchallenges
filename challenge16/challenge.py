@@ -32,7 +32,24 @@ def main(file):
     writeToFile(file, fishData, d2)
 
 
+def assessTank(pdf, fishData):
+    commands = {
+      1: "1 Month",
+      2: "2 Month",
+      3: "3 Month",
+      4: "4 Month",
+      5: "5 Month",
+      6: "6 Month",
+      7: "7 Month",
+      8: "8 Month",
+      9: "Time to harvest"
+    }
 
+    for tank in fishData.get("tanks"):
+        strtouse = "Tank " + str(tank) + ": " +str(commands.get(fishData.get("tanks").get(tank).get("age")))
+        pdf.cell(20)
+        pdf.cell(10, 5, txt=strtouse, ln=1)
+    return pdf
 
 def writeToFile(jsonFile, fishData, d2):
     # update lastupdated date and write to file
@@ -47,9 +64,7 @@ def writeToFile(jsonFile, fishData, d2):
     pdf.set_font("Arial", size=12)
     pdf.cell(200, 10, txt=name, ln=1, align="C")
 
-    for tank in fishData.get("tanks").keys():
-        pdf.cell(20)
-        pdf.cell(10, 5, txt=str(fishData.get("tanks").get(tank)), ln=1)
+    pdf = assessTank(pdf, fishData)
 
     pdf.output(name + str(random.randint(11,20)) + ".pdf")
 
