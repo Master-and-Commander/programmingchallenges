@@ -12,10 +12,12 @@ import random
 
 ### GRAND VIEW
 # print pdf with daily and weekly tasks
-# later on incorporate sensors [count fish, show pH level, oxygen level, temperature, water quality]
+# later on incorporate sensors
 
 
 # next step
+# print out fish sensor data as a graph
+
 
 def main(file):
     today = date.today()
@@ -28,13 +30,46 @@ def main(file):
     # check if up to date
     if(str(fishData.get("lastDate")) == str(d2)):
         print("Up to date")
+    else:
+        print("Fish ages may need to be updated")
 
     writeToFile(file, fishData, d2)
 
 
+def sensors(pdf):
+    sensorData = {}
+    pdf.set_font("Arial", size=12)
+    pdf.cell(200, 10, txt="Special to Dos", ln=1, align="C")
+
+    for x in range(9):
+        # pick up data from sensors
+        # maybe print out as a graph
+        fish = 20
+        pH = 7
+        oxygen = 7
+        temperature = 60
+        quality = 1
+        sensorData[x+1] = {
+           "fish": fish,
+           "pH": pH,
+           "oxygen": oxygen,
+           "temperature": temperature,
+           "quality": quality
+        }
+        strtouse = "Tank " + str(x+1) + ": " +str(sensorData[x+1]["fish"])
+        pdf.cell(20)
+        pdf.cell(10, 5, txt=strtouse, ln=1)
+
+
+    print("Trying to sense")
+    print(sensorData)
+    return pdf
+    # functions that may be done:
+    ## counting fish, sense pH level, oxygen level, temp, water quality
+
 def assessTank(pdf, fishData):
     commands = {
-      1: "1 Month",
+      1: "Feed 3 times a day",
       2: "2 Month",
       3: "3 Month",
       4: "4 Month",
@@ -44,7 +79,8 @@ def assessTank(pdf, fishData):
       8: "8 Month",
       9: "Time to harvest"
     }
-
+    sensors(pdf)
+    # for age
     for tank in fishData.get("tanks"):
         strtouse = "Tank " + str(tank) + ": " +str(commands.get(fishData.get("tanks").get(tank).get("age")))
         pdf.cell(20)
@@ -53,6 +89,7 @@ def assessTank(pdf, fishData):
 
 def writeToFile(jsonFile, fishData, d2):
     # update lastupdated date and write to file
+
     fishData["lastDate"] = str(d2)
     with open(jsonFile, 'w') as outfile:
         json.dump(fishData, outfile)
@@ -64,7 +101,7 @@ def writeToFile(jsonFile, fishData, d2):
     pdf.set_font("Arial", size=12)
     pdf.cell(200, 10, txt=name, ln=1, align="C")
 
-    pdf = assessTank(pdf, fishData)
+    assessTank(pdf, fishData)
 
     pdf.output(name + str(random.randint(11,20)) + ".pdf")
 
