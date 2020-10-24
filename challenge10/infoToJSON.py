@@ -24,4 +24,10 @@ def printStuff():
     jSONString = jSONString + '}'
     print(jSONString)
 
-printStuff()
+def splitByPeriods(text):
+    array = text.split('.')
+    for x in array:
+        print(x)
+
+text = input("Input text: ")
+splitByPeriods(str(text))
