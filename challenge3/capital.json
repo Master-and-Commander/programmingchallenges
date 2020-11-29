@@ -1,0 +1,74 @@
+{
+    "settings": {
+        "d": 950.0,
+        "Job": 1,
+        "House": 0
+    },
+    "update Quiz": {
+        "Aquaponics system for catfish": 12,
+        "Tilapia system": 12,
+        "Aquaponics Laravel Website": 12
+    },
+    "subjects": {
+        "history": {
+            "Boer War": {
+                "questionCount": 10,
+                "questions": {
+                  "1": {
+                    "question": "T/F: Winston Churchill was involved in this war",
+                    "answer": "T"
+                    },
+                  "2": {
+                      "question": "How are you?",
+                      "answer": "I am well"
+                      }
+                  }
+            },
+            "historyquiz2": {
+                "questionCount": 10,
+                "questions": {
+                  "1": {
+                    "question": "How are you?",
+                    "answer": "I am well"
+                    },
+                  "2": {
+                      "question": "How are you?",
+                      "answer": "I am well"
+                      }
+                  }
+            }
+
+        },
+        "science": {
+          "Icthyology": {
+            "questionCount":10,
+            "questions": {
+              "1": {
+                "question": "Where is the dorsal fin located?",
+                "answer": "top"
+              },
+              "2": {
+                "question": "Does a whale count as a fish?",
+                "answer": "no"
+              }
+            }
+          }
+        },
+        "subjectTemplate": {
+          "templateQuiz1": {
+            "questionCount":10,
+            "questions": {
+              "1": {
+                "question": "How are you?",
+                "answer": "I am well"
+                },
+              "2": {
+                  "question": "How are you?",
+                  "answer": "I am well"
+                  }
+              }
+            }
+        }
+
+    }
+}

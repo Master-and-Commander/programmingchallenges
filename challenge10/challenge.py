@@ -24,9 +24,10 @@ import random
 ##  https://github.com/ropensci/fishbaseapi
 # fishwatch  https://www.fishwatch.gov/api/species
 
-# GET https://fishbaseapi.info/species?Genus=Labroides
-# api endpoints
 
+# next step
+## add more fish to fish to fishToFetch
+##
 
 
 
@@ -121,15 +122,6 @@ def getBibleVerse(pdf):
             pdf.cell(10, 5, txt=statementstring, ln=1)
 
 
-
-
-
-
-def getGermanSentences(pdf):
-    #might not be a good thing to do, as it is not a high priority
-    #German phrases to learn
-    return pdf
-
 def getFishInfo(pdf):
     fishToFetch = {
        1: {
@@ -188,14 +180,9 @@ def getFishInfo(pdf):
                 pdf.cell(10, 5, txt=statementstring, ln=1)
 
 
-
-
-
-
-
-
 def getShareableInfo(pdf):
     # could be quote from spurgeon, article from voice of the Martyrs, whatever
+    # Ideas [Voice of the Martyrs, Tim Challies, ]
     return pdf
 
 def email(pdf, name):
