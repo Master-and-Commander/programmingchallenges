@@ -3,7 +3,7 @@ import array
 import numpy as np
 import random
 
-dictionary=PyDictionary()
+
 
 # would be useful to check if entry is a word or a number
 # if a word get type (ex. noun)
@@ -90,10 +90,6 @@ def organizeConclusions(text, dictionary):
             organizedConclusions[subject] = latterstatement
     return organizedConclusions
 
-
-
-
-
     # first divide into sentences
     # for each sentence
     # find first noun
@@ -116,7 +112,6 @@ def returnQuestions(text, numbofquestions, dictionary):
 
     print("these are my conclusions")
     print(np_questions)
-
 
 def makeQuestion(subject, statement, mode):
     # question types
@@ -169,6 +164,11 @@ def makeQuestion(subject, statement, mode):
     return questiondata
 
 
-
-
+dictionary=PyDictionary()
 returnQuestions("I am a tall fellow. Interestingly, donkeys graciously eat cookies. donkeys drink water. Broken cisterns yield no water. Programming breaks laziness. Programming soothes the soul. small cisterns hold some water.", 10, dictionary)
+
+
+# returnQuestions -> organizeConclusions
+# returnQuestions -> makeQuestion
+
+# "Elephant, (family Elephantidae), largest living land animal, characterized by its long trunk (elongated upper lip and nose), columnar legs, and huge head with temporal glands and wide, flat ears. Elephants are grayish to brown in colour, and their body hair is sparse and coarse. They are found most often in savannas, grasslands, and forests but occupy a wide range of habitats, including deserts, swamps, and highlands in tropical and subtropical regions of Africa and Asia."
