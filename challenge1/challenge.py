@@ -1,4 +1,4 @@
-from PyDictionary import PyDictionary
+#from PyDictionary import PyDictionary
 import array
 import numpy as np
 import random
@@ -164,9 +164,9 @@ def makeQuestion(subject, statement, mode):
     return questiondata
 
 
-dictionary=PyDictionary()
-returnQuestions("I am a tall fellow. Interestingly, donkeys graciously eat cookies. donkeys drink water. Broken cisterns yield no water. Programming breaks laziness. Programming soothes the soul. small cisterns hold some water.", 10, dictionary)
-
+#dictionary=PyDictionary()
+#returnQuestions("I am a tall fellow. Interestingly, donkeys graciously eat cookies. donkeys drink water. Broken cisterns yield no water. Programming breaks laziness. Programming soothes the soul. small cisterns hold some water.", 10, dictionary)
+print("Hello Fam")
 
 # returnQuestions -> organizeConclusions
 # returnQuestions -> makeQuestion
